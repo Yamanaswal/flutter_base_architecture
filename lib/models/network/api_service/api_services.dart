@@ -12,21 +12,23 @@ class ApiService {
       {required RequestType requestType,
       required String endPoint,
       Object? body,
-      Map<String, String>? headers}) async {
+      Map<String, dynamic>? queryParameters,
+      Map<String, String>? headers,
+      Map<String, String>? fields,
+      List<MultipartFile>? files}) async {
     switch (requestType) {
       case RequestType.get:
-        return getRequest(endPoint, headers);
+        return getRequest(endPoint, queryParameters, headers);
       case RequestType.post:
         return postRequest(endPoint, body, headers);
       case RequestType.delete:
-        deleteRequest(endPoint, body, headers);
-        break;
+        return deleteRequest(endPoint, body, headers);
       case RequestType.put:
-        putRequest(endPoint, body, headers);
-        break;
+        return putRequest(endPoint, body, headers);
       case RequestType.patch:
-        patchRequest(endPoint, body, headers);
-        break;
+        return patchRequest(endPoint, body, headers);
+      case RequestType.multipart:
+        return multipartRequest(endPoint, fields, files, headers);
       default:
         log(kTag, "No RequestType Provided.");
     }
@@ -37,9 +39,13 @@ class ApiService {
   /// *
   /// GET REQUEST
   /// */
-  Future<Response> getRequest(String endPoint,
-      [Map<String, String>? headers]) async {
+  Future<Response> getRequest(
+      String endPoint, Map<String, dynamic>? queryParameters,Map<String, String>? headers) async {
     try {
+      final uri = Uri.parse(baseUrl + endPoint);
+      if (queryParameters != null) {
+        uri.replace(queryParameters: queryParameters);
+      }
       var response = await get(Uri.parse(baseUrl + endPoint), headers: headers);
       return response;
     } catch (ex) {
@@ -52,8 +58,7 @@ class ApiService {
   /// *
   /// POST REQUEST
   /// */
-  Future<Response> postRequest(String endPoint, Object? body,
-      [Map<String, String>? headers]) async {
+  Future<Response> postRequest(String endPoint, Object? body,Map<String, String>? headers) async {
     try {
       var response = await post(Uri.parse(baseUrl + endPoint),
           body: body, headers: headers);
@@ -68,8 +73,7 @@ class ApiService {
   /// *
   /// DELETE REQUEST
   /// */
-  Future<Response> deleteRequest(String endPoint, Object? body,
-      [Map<String, String>? headers]) async {
+  Future<Response> deleteRequest(String endPoint, Object? body,Map<String, String>? headers) async {
     try {
       var response = await delete(Uri.parse(baseUrl + endPoint),
           headers: headers, body: body);
@@ -84,8 +88,7 @@ class ApiService {
   /// *
   /// PUT REQUEST
   /// */
-  Future<Response> putRequest(String endPoint, Object? body,
-      [Map<String, String>? headers]) async {
+  Future<Response> putRequest(String endPoint, Object? body,Map<String, String>? headers) async {
     try {
       var response = await put(Uri.parse(baseUrl + endPoint),
           headers: headers, body: body);
@@ -100,8 +103,7 @@ class ApiService {
   /// *
   /// PATCH REQUEST
   /// */
-  Future<Response> patchRequest(String endPoint, Object? body,
-      [Map<String, String>? headers]) async {
+  Future<Response> patchRequest(String endPoint, Object? body, Map<String, String>? headers) async {
     try {
       var response = await patch(Uri.parse(baseUrl + endPoint),
           headers: headers, body: body);
@@ -112,8 +114,28 @@ class ApiService {
     }
     return Response("Failure", 0);
   }
+
+  /// *
+  /// MULTIPART REQUEST
+  /// */
+  Future<Response> multipartRequest(
+      String endPoint, Map<String, String>? fields, List<MultipartFile>? files, Map<String, String>? headers) async {
+    try {
+      MultipartRequest request = MultipartRequest('POST', Uri.parse(baseUrl + endPoint));
+      request.headers.addAll(headers ?? {});
+      request.fields.addAll(fields ?? {});
+      request.files.addAll(files ?? {});
+
+      StreamedResponse response = await request.send();
+      return Response.fromStream(response);
+    } catch (ex) {
+      log(kTag, "--------------- multipartRequest Exception -------------- ");
+      log(kTag, ex);
+    }
+    return Response("Failure", 0);
+  }
 }
 
-enum RequestType { get, post, delete, put, patch }
+enum RequestType { get, post, delete, put, patch, multipart }
 
 const kTag = "ApiService";
