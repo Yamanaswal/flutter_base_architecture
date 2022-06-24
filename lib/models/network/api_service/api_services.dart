@@ -30,7 +30,7 @@ class ApiService {
       case RequestType.multipart:
         return multipartRequest(endPoint, fields, files, headers);
       default:
-        log(kTag, "No RequestType Provided.");
+        console(kTag, "No RequestType Provided.");
     }
 
     return Response("Failure", 0);
@@ -49,8 +49,8 @@ class ApiService {
       var response = await get(Uri.parse(baseUrl + endPoint), headers: headers);
       return response;
     } catch (ex) {
-      log(kTag, "--------------- getRequest Exception -------------- ");
-      log(kTag, ex);
+      console(kTag, "--------------- getRequest Exception -------------- ");
+      console(kTag, ex);
     }
     return Response("Failure", 0);
   }
@@ -64,8 +64,8 @@ class ApiService {
           body: body, headers: headers);
       return response;
     } catch (ex) {
-      log(kTag, "--------------- postRequest Exception -------------- ");
-      log(kTag, ex);
+      console(kTag, "--------------- postRequest Exception -------------- ");
+      console(kTag, ex);
     }
     return Response("Failure", 0);
   }
@@ -79,8 +79,8 @@ class ApiService {
           headers: headers, body: body);
       return response;
     } catch (ex) {
-      log(kTag, "--------------- deleteRequest Exception -------------- ");
-      log(kTag, ex);
+      console(kTag, "--------------- deleteRequest Exception -------------- ");
+      console(kTag, ex);
     }
     return Response("Failure", 0);
   }
@@ -94,8 +94,8 @@ class ApiService {
           headers: headers, body: body);
       return response;
     } catch (ex) {
-      log(kTag, "--------------- putRequest Exception -------------- ");
-      log(kTag, ex);
+      console(kTag, "--------------- putRequest Exception -------------- ");
+      console(kTag, ex);
     }
     return Response("Failure", 0);
   }
@@ -109,8 +109,8 @@ class ApiService {
           headers: headers, body: body);
       return response;
     } catch (ex) {
-      log(kTag, "--------------- patchRequest Exception -------------- ");
-      log(kTag, ex);
+      console(kTag, "--------------- patchRequest Exception -------------- ");
+      console(kTag, ex);
     }
     return Response("Failure", 0);
   }
@@ -129,8 +129,8 @@ class ApiService {
       StreamedResponse response = await request.send();
       return Response.fromStream(response);
     } catch (ex) {
-      log(kTag, "--------------- multipartRequest Exception -------------- ");
-      log(kTag, ex);
+      console(kTag, "--------------- multipartRequest Exception -------------- ");
+      console(kTag, ex);
     }
     return Response("Failure", 0);
   }

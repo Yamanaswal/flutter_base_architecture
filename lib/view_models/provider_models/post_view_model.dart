@@ -15,7 +15,7 @@ class PostViewModel extends ChangeNotifier{
        ApiResponse responseBody = await ApiManager().getRequestApi(endPoint: ApiEndPoints.posts,headers: ApiManager.defaultHeaders);
        return compute(parseData,responseBody.body);
      }catch(ex){
-       log("TAG",ex);
+       console("TAG",ex);
        throw Exception(ex);
      }
 

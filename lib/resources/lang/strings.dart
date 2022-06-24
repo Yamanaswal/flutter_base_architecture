@@ -3,5 +3,5 @@
 /// **/
 
 class Strings {
-  static const appName = "Flutter Base Arch.";
+  static const appName = "appName";
 }

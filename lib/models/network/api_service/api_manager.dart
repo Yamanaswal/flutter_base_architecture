@@ -26,10 +26,10 @@ class ApiManager {
           endPoint: ApiEndPoints.posts,
           queryParameters: queryParameters);
 
-      log("$tag Request :->  ", response.request);
-      log("$tag Response : Status Code :->  ", response.statusCode);
-      log("$tag Response : Headers:->  ", response.headers);
-      log("$tag Response : Body ->  ", response.body);
+      console("$tag Request :->  ", response.request);
+      console("$tag Response : Status Code :->  ", response.statusCode);
+      console("$tag Response : Headers:->  ", response.headers);
+      console("$tag Response : Body ->  ", response.body);
 
       return ApiResponse(
         statusCode: response.statusCode,
@@ -37,8 +37,8 @@ class ApiManager {
         body: json.decode(response.body),
       );
     } catch (ex) {
-      log(tag, "----------- getRequestApi Exception -------- ");
-      log(tag, ex);
+      console(tag, "----------- getRequestApi Exception -------- ");
+      console(tag, ex);
     }
     return ApiResponse(statusCode: 0, headers: {});
   }
@@ -55,10 +55,10 @@ class ApiManager {
         body: jsonEncode(body),
       );
 
-      log("$tag Request :->  ", response.request);
-      log("$tag Response : Status Code :->  ", response.statusCode);
-      log("$tag Response : Headers:->  ", response.headers);
-      log("$tag Response : Body ->  ", response.body);
+      console("$tag Request :->  ", response.request);
+      console("$tag Response : Status Code :->  ", response.statusCode);
+      console("$tag Response : Headers:->  ", response.headers);
+      console("$tag Response : Body ->  ", response.body);
 
       return ApiResponse(
         statusCode: response.statusCode,
@@ -66,8 +66,8 @@ class ApiManager {
         body: json.decode(response.body),
       );
     } catch (ex) {
-      log(tag, "----------- postRequestApi Exception -------- ");
-      log(tag, ex);
+      console(tag, "----------- postRequestApi Exception -------- ");
+      console(tag, ex);
     }
 
     return ApiResponse(statusCode: 0, headers: {});
@@ -86,10 +86,10 @@ class ApiManager {
           fields: fields,
           files: files);
 
-      log("$tag Request :->  ", response.request);
-      log("$tag Response : Status Code :->  ", response.statusCode);
-      log("$tag Response : Headers:->  ", response.headers);
-      log("$tag Response : Body ->  ", response.body);
+      console("$tag Request :->  ", response.request);
+      console("$tag Response : Status Code :->  ", response.statusCode);
+      console("$tag Response : Headers:->  ", response.headers);
+      console("$tag Response : Body ->  ", response.body);
 
       return ApiResponse(
         statusCode: response.statusCode,
@@ -97,8 +97,8 @@ class ApiManager {
         body: json.decode(response.body),
       );
     } catch (ex) {
-      log(tag, "----------- postRequestApi Exception -------- ");
-      log(tag, ex);
+      console(tag, "----------- postRequestApi Exception -------- ");
+      console(tag, ex);
     }
 
     return ApiResponse(statusCode: 0, headers: {});

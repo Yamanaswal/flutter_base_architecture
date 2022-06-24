@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_architecture/view_models/provider_models/post_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'main_screen.dart';
+
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -15,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    var vm = Provider.of<PostViewModel>(context,listen: false);
+    var vm = Provider.of<PostViewModel>(context, listen: false);
     vm.callApi();
   }
 
@@ -24,7 +27,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Scaffold(
       appBar: AppBar(),
-      body: Container(),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ElevatedButton(
+            onPressed: () async {
+             Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MainScreen()));
+            },
+            child: Text('Go To Main Screen'),
+          ),
+        ],
+      ),
     );
   }
 }
