@@ -1,3 +1,5 @@
 {
-    "appName": "Flutter Base Arch."
+    "appName": "Flutter Base Arch.",
+    "version": "1.0",
+    "sdkVersion" : "3.2"
 }

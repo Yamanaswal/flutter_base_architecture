@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_architecture/resources/lang/app_language.dart';
+import 'package:flutter_base_architecture/utils/log.dart';
 import 'package:flutter_base_architecture/views/screens/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -9,27 +10,33 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Set Init Language.
-  AppLanguage appLanguage = AppLanguage();
-  var locale = await appLanguage.fetchLocale();
-
   runApp(
     MultiProvider(
       providers: providers,
-      child:  MyApp(appLocale: locale),
+      child: const MyApp(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  const MyApp({Key? key,required this.appLocale}) : super(key: key);
-  final Locale appLocale;
+  @override
+  State<MyApp> createState() => _MyAppState();
 
+  static _MyAppState? of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
@@ -38,12 +45,20 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      locale: appLocale,
+      locale: locale,
       supportedLocales: const [
         Locale('en', ''), // English, no country code
         Locale('es', ''), // Spanish, no country code
       ],
       home: const SplashScreen(),
     );
+  }
+
+  var locale = const Locale("en");
+
+  void setLocale(Locale value) {
+    setState(() {
+      locale = value;
+    });
   }
 }
