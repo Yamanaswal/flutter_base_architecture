@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_architecture/resources/lang/app_language.dart';
-import 'package:flutter_base_architecture/utils/log.dart';
 import 'package:flutter_base_architecture/views/screens/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';

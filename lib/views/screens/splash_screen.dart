@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_architecture/models/database/database.dart';
 import 'package:flutter_base_architecture/resources/lang/app_language.dart';
 import 'package:flutter_base_architecture/view_models/provider_models/post_view_model.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     var vm = Provider.of<PostViewModel>(context, listen: false);
     vm.callApi();
+    var database = Database();
+    database.createBox<String>("testBox");
+
   }
 
   @override

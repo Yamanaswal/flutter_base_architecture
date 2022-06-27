@@ -7,6 +7,8 @@ import 'package:http/http.dart';
 
 import '../../../utils/log.dart';
 
+const _tag = "ApiManager";
+
 class ApiManager {
   ApiService apiService = ApiService(baseUrl: "https://jsonplaceholder.typicode.com");
 
@@ -26,10 +28,10 @@ class ApiManager {
           endPoint: ApiEndPoints.posts,
           queryParameters: queryParameters);
 
-      console("$tag Request :->  ", response.request);
-      console("$tag Response : Status Code :->  ", response.statusCode);
-      console("$tag Response : Headers:->  ", response.headers);
-      console("$tag Response : Body ->  ", response.body);
+      console("$_tag Request :->  ", response.request);
+      console("$_tag Response : Status Code :->  ", response.statusCode);
+      console("$_tag Response : Headers:->  ", response.headers);
+      console("$_tag Response : Body ->  ", response.body);
 
       return ApiResponse(
         statusCode: response.statusCode,
@@ -37,8 +39,8 @@ class ApiManager {
         body: json.decode(response.body),
       );
     } catch (ex) {
-      console(tag, "----------- getRequestApi Exception -------- ");
-      console(tag, ex);
+      console(_tag, "----------- getRequestApi Exception -------- ");
+      console(_tag, ex);
     }
     return ApiResponse(statusCode: 0, headers: {});
   }
@@ -55,10 +57,10 @@ class ApiManager {
         body: jsonEncode(body),
       );
 
-      console("$tag Request :->  ", response.request);
-      console("$tag Response : Status Code :->  ", response.statusCode);
-      console("$tag Response : Headers:->  ", response.headers);
-      console("$tag Response : Body ->  ", response.body);
+      console("$_tag Request :->  ", response.request);
+      console("$_tag Response : Status Code :->  ", response.statusCode);
+      console("$_tag Response : Headers:->  ", response.headers);
+      console("$_tag Response : Body ->  ", response.body);
 
       return ApiResponse(
         statusCode: response.statusCode,
@@ -66,8 +68,8 @@ class ApiManager {
         body: json.decode(response.body),
       );
     } catch (ex) {
-      console(tag, "----------- postRequestApi Exception -------- ");
-      console(tag, ex);
+      console(_tag, "----------- postRequestApi Exception -------- ");
+      console(_tag, ex);
     }
 
     return ApiResponse(statusCode: 0, headers: {});
@@ -86,10 +88,10 @@ class ApiManager {
           fields: fields,
           files: files);
 
-      console("$tag Request :->  ", response.request);
-      console("$tag Response : Status Code :->  ", response.statusCode);
-      console("$tag Response : Headers:->  ", response.headers);
-      console("$tag Response : Body ->  ", response.body);
+      console("$_tag Request :->  ", response.request);
+      console("$_tag Response : Status Code :->  ", response.statusCode);
+      console("$_tag Response : Headers:->  ", response.headers);
+      console("$_tag Response : Body ->  ", response.body);
 
       return ApiResponse(
         statusCode: response.statusCode,
@@ -97,12 +99,11 @@ class ApiManager {
         body: json.decode(response.body),
       );
     } catch (ex) {
-      console(tag, "----------- postRequestApi Exception -------- ");
-      console(tag, ex);
+      console(_tag, "----------- postRequestApi Exception -------- ");
+      console(_tag, ex);
     }
 
     return ApiResponse(statusCode: 0, headers: {});
   }
 }
 
-const tag = "ApiManager";
