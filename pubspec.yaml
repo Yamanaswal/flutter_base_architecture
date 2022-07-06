@@ -30,6 +30,7 @@ dependencies:
   ## Local Storage.
   shared_preferences: ^2.0.15
 
+  ## Local Database
   hive: ^2.2.2
   hive_flutter: ^1.1.0
 

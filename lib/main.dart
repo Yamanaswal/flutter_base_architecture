@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_architecture/models/database/database.dart';
+import 'package:flutter_base_architecture/utils/log.dart';
 import 'package:flutter_base_architecture/views/screens/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'models/database/database_utils.dart';
 import 'view_models/providers/providers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /** Init Database - Hive. **/
+  await Hive.initFlutter();
+
+  /** Create Boxes - Tables **/
+  await createTables();
 
   runApp(
     MultiProvider(
@@ -16,13 +26,16 @@ void main() async {
   );
 }
 
+
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
 
-  static _MyAppState? of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>();
+  static _MyAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
 }
 
 class _MyAppState extends State<MyApp> {

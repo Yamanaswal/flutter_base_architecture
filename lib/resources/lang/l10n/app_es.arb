@@ -1,3 +1,5 @@
 {
-    "appName": "¡Hola Mundo!"
+    "appName": "¡Hola Mundo!",
+    "version": "1.0",
+    "sdkVersion" : "3.2"
 }

@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../main.dart';
+import '../../models/database/database_const.dart';
+import '../../utils/log.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,9 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     var vm = Provider.of<PostViewModel>(context, listen: false);
     vm.callApi();
-    var database = Database();
-    database.createBox<String>("testBox");
 
+    var db = Database();
+    db.writeBox<int>(tableName1, "xyz",20);
   }
 
   @override
@@ -42,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   MyApp.of(context)?.setLocale(const Locale("en"));
                 });
               },
-              child: Text('English'),
+              child: Text('English' ),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -51,12 +53,15 @@ class _SplashScreenState extends State<SplashScreen> {
                   MyApp.of(context)?.setLocale(const Locale("es"));
                 });
               },
-              child: Text('Arabic'),
+              child: Text('Arabic '),
             ),
             Text(AppLocalizations.of(context)?.appName ?? "" ),
             Text(AppLocalizations.of(context)?.version ?? "" ),
             Text(AppLocalizations.of(context)?.sdkVersion ?? "" )
           ],
-        ));
+        ),
+    );
   }
+
+
 }
