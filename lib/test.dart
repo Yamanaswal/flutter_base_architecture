@@ -1,30 +1,41 @@
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_base_architecture/models/database/database_manager.dart';
+import 'package:flutter_base_architecture/models/database/database_models.dart';
+import 'package:flutter_base_architecture/models/network/models/posts/post.dart';
+import 'package:flutter_base_architecture/utils/log.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  var friends = await Hive.openBox('friends');
-  friends.clear();
+  WidgetsFlutterBinding.ensureInitialized();
 
-  friends.add('Lisa'); // index 0, key 0
-  friends.add('Dave'); // index 1, key 1
-  friends.put(123, 'Marco'); // index 2, key 123
-  friends.add('Paul'); // index 3, key 124
+  var db = DatabaseManager();
+  await DatabaseModels().createTables(db);
 
-  print(friends.getAt(0));
-  print(friends.get(0));
+  var post = Post();
+  post.title = "Hello";
+  post.id = 200;
+  db.database.insert("Test1", post.toJson());
+  db.database.insert("Test1", post.toJson());
+  db.database.insert("Test1", post.toJson());
+  db.database.insert("Test1", post.toJson());
+  db.database.insert("Test1", post.toJson());
+  db.database.insert("Test1", post.toJson());
+  db.database.rawQuery("Select * From Test1");
 
-  print(friends.getAt(1));
-  print(friends.get(1));
+  db.clearTable(tableName: "Test1");
+  db.database.insert("Test1", post.toJson());
+  db.database.insert("Test1", post.toJson());
 
-  print(friends.getAt(2));
-  print(friends.get(123));
+  var tableData = await db.getTableData(tableName: "Test1");
+  console("TEST1: (1) --> ", tableData);
 
-  print(friends.getAt(3));
-  print(friends.get(124));
-  print("ASASASAS");
+  db.insertOne(tableMap: post.toJson(),tableName: "Test1");
+  db.updateMany(tableName: "Test1", tableMap: post.toJson());
 
-  friends.delete(123);
-  print(friends.containsKey(123));
-  print(friends.containsKey(123));
+  var post2 = Post();
+  post2.body = "Update One Worked.";
+  db.updateOne(tableName: "Test1", tableMap: post2.toJson(), whereString: "userId = 2");
+  var data = await db.getTableData(tableName: "Test1");
+  console("TEST1: (2) --> ", data);
+
+
 }

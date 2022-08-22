@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_architecture/models/database/database.dart';
 import 'package:flutter_base_architecture/resources/lang/app_language.dart';
 import 'package:flutter_base_architecture/view_models/provider_models/post_view_model.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../main.dart';
-import '../../models/database/database_const.dart';
 import '../../utils/log.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,9 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     var vm = Provider.of<PostViewModel>(context, listen: false);
     vm.callApi();
-
-    var db = Database();
-    db.writeBox<int>(tableName1, "xyz",20);
   }
 
   @override
