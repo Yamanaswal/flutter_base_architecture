@@ -1,4 +1,5 @@
-import 'package:flutter_base_architecture/models/database/database_manager.dart';
+
+import 'package:library_store/database/database_manager.dart';
 
 class DatabaseModels {
 
@@ -10,8 +11,7 @@ class DatabaseModels {
 
     databaseManager.create(
       tableName: "Test1",
-      tableColumns:
-          "userId INTEGER PRIMARY KEY, id INTEGER, title TEXT,body TEXT",
+      tableColumns: "userId INTEGER PRIMARY KEY, id INTEGER, title TEXT,body TEXT",
     );
 
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_architecture/resources/constants/api_urls.dart';
 import 'package:flutter_base_architecture/views/screens/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:library_store/library_store.dart';
 import 'package:provider/provider.dart';
 import 'view_models/providers/providers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,8 +28,7 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 
-  static _MyAppState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_MyAppState>();
+  static _MyAppState? of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    ApiManager().baseUrl = ApiEndPoints.baseUrl;
   }
 
   @override
@@ -63,5 +65,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       locale = value;
     });
+
   }
 }

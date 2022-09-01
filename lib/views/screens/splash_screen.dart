@@ -1,12 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_base_architecture/resources/lang/app_language.dart';
-import 'package:flutter_base_architecture/view_models/provider_models/post_view_model.dart';
+import 'package:flutter_base_architecture/view_models/provider_view_models/post_view_model.dart';
+import 'package:library_store/library_store.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../main.dart';
-import '../../utils/log.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,12 +18,24 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     var vm = Provider.of<PostViewModel>(context, listen: false);
-    vm.callApi();
+
+    vm.callApiPosts().then((value) {
+      print("DATA::::");
+      print(value);
+    });
+
+    vm.callApi().then((value) {
+      print("DATA POST 1 ::::");
+      print(jsonEncode(value));
+    });
+    var s = SocketManager();
+    s.init();
   }
 
   @override
